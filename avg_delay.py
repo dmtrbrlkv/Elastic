@@ -8,8 +8,7 @@ from consts import FLIGHTS_INDEX, FLIGHTS_FN_IMPORT
 
 def delay_per_carrier(es):
     s = Search(using=es, index=FLIGHTS_INDEX)
-    # s = s.exclude("match", DistanceKilometres=0)
-    s = s.exclude("match", Cancelled=True)
+    s = s.exclude("match", DistanceKilometers=0)
 
     s.aggs.bucket('delay_per_carrier', 'terms', field='Carrier.keyword').metric("avg_delay", 'avg',
                                                                                 field='FlightDelayMin')
