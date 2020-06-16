@@ -7,8 +7,8 @@ from consts import HOST, PORT
 
 def es_arg_parser():
     arg_parser = ArgumentParser()
-    arg_parser.add_argument("-H", "--host", action="store", default=HOST)
-    arg_parser.add_argument("-P", "--port", action="store", type=int, default=PORT)
+    arg_parser.add_argument("-H", "--host", action="store", default=HOST, help=f"Elasticsearch host, default = {HOST}")
+    arg_parser.add_argument("-P", "--port", action="store", type=int, default=PORT, help=f"Elasticsearch port, default = {PORT}")
 
     return arg_parser
 

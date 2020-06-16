@@ -3,7 +3,7 @@ import csv
 from elasticsearch_dsl import Search
 
 from es_client import get_es_client, es_arg_parser
-from consts import FLIGHTS_INDEX
+from consts import FLIGHTS_INDEX, FLIGHTS_FN_IMPORT
 
 
 def delay_per_carrier(es):
@@ -33,7 +33,8 @@ def delays_to_csv(delays, filename):
 
 def load_args():
     arg_parser = es_arg_parser()
-    arg_parser.add_argument("-f", "--filename", action="store", default="delays.csv")
+    arg_parser.add_argument("-f", "--filename", action="store", default=FLIGHTS_FN_IMPORT,
+                            help=f"File to import, default = {FLIGHTS_FN_IMPORT}")
 
     return arg_parser.parse_args()
 

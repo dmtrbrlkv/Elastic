@@ -6,7 +6,7 @@ from argparse import ArgumentTypeError
 from elasticsearch_dsl import Search
 
 from es_client import get_es_client, es_arg_parser
-from consts import LOGS_INDEX
+from consts import LOGS_INDEX, LOGS_FN_IMPORT, LOGS_IMAGE_IMPORT, LOGS_BEGIN, LOGS_END
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -84,10 +84,14 @@ def load_args():
             raise ArgumentTypeError(msg)
 
     arg_parser = es_arg_parser()
-    arg_parser.add_argument("-b", "--begin", action="store", type=valid_date, default="2019-03-01")
-    arg_parser.add_argument("-e", "--end", action="store", type=valid_date, default="2019-04-01")
-    arg_parser.add_argument("-f", "--filename", action="store", default="bytes.csv")
-    arg_parser.add_argument("-i", "--imagename", action="store", default="bytes.png")
+    arg_parser.add_argument("-b", "--begin", action="store", type=valid_date, default=LOGS_BEGIN,
+                            help=f"Beginning of period in 'YYYY-MM-DD' format, default = {LOGS_BEGIN}")
+    arg_parser.add_argument("-e", "--end", action="store", type=valid_date, default=LOGS_END,
+                            help=f"End of period in 'YYYY-MM-DD' format, default = {LOGS_END}")
+    arg_parser.add_argument("-f", "--filename", action="store", default=LOGS_FN_IMPORT,
+                            help=f"File to import, default = {LOGS_FN_IMPORT}")
+    arg_parser.add_argument("-i", "--imagename", action="store", default=LOGS_IMAGE_IMPORT,
+                            help=f"File to import, default = {LOGS_IMAGE_IMPORT}")
 
     return arg_parser.parse_args()
 
